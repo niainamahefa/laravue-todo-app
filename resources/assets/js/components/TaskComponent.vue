@@ -1,0 +1,48 @@
+<template>
+    <div class="container">
+        <add-task></add-task>
+        <div class="album py-5 bg-light">
+            <div class="container">
+                <div class="row">
+                    <div v-for="task in tasks" :key="task.id" class="col-md-4" >
+                        <div class="card mb-4 box-shadow">
+                            <div class="card-body">
+                                <h4 class="text-success">{{ task.title }}</h4>
+                                <p class="card-text">{{ task.description }}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    </div>
+                                    <small class="text-muted">9 mins</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        data() {
+            // retourne un tableau vide
+            return {
+                tasks: {}
+            }
+        },
+        /*
+        Méthode pour faire du server rendering
+         */
+        created() {
+            axios.get('http://localhost:8000/tasksList')
+                .then(response => this.tasks = response.data)
+                .catch(error => console.log(error));
+        },
+        mounted() {
+            console.log("Task")
+        }
+    }
+</script>
