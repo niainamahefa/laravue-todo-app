@@ -1,10 +1,10 @@
 <template>
     <div class="container">
-        <add-task></add-task>
+        <add-task @task-added="refresh"></add-task>
         <div class="album py-5 bg-light">
             <div class="container">
                 <div class="row">
-                    <div v-for="task in tasks" :key="task.id" class="col-md-4" >
+                    <div class="col-md-4"   v-for="task in tasks" :key="task.id">
                         <div class="card mb-4 box-shadow">
                             <div class="card-body">
                                 <h4 class="text-success">{{ task.title }}</h4>
@@ -40,6 +40,11 @@
             axios.get('http://localhost:8000/tasksList')
                 .then(response => this.tasks = response.data)
                 .catch(error => console.log(error));
+        },
+        methods: {
+          refresh(tasks) {
+              this.tasks = tasks.data
+          }
         },
         mounted() {
             console.log("Task")

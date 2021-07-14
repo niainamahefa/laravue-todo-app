@@ -20,3 +20,5 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/tasksList', 'TaskController@index');
+
+Route::post('/tasksList', 'TaskController@store');

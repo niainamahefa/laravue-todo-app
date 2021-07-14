@@ -13,13 +13,22 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div class="modal-body">
-                        ...
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success btn-sm">Save changes</button>
-                    </div>
+                    <form>
+                        <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="Title">Title</label>
+                                    <input type="text" class="form-control" v-model="title" placeholder="Task title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="Description">Description</label>
+                                    <textarea class="form-control"  v-model="description" rows="3" placeholder="Task description"></textarea>
+                                </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light btn-sm" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-success btn-sm" @click="taskStore">Save changes</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -28,6 +37,22 @@
 
 <script>
     export default {
+        data() {
+            return {
+                title: '',
+                description: ''
+            }
+        },
+         methods: {
+             taskStore() {
+                axios.post('http://localhost:8000/tasksList', {
+                        title: this.title,
+                        description: this.description
+                    })
+                    .then(response => this.$emit('task-added', response))
+                    .catch(error => console.log(error))
+             }
+         },
 
         name: "AddTaskComponent"
     }
