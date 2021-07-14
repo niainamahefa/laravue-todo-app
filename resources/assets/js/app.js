@@ -29,6 +29,7 @@ Router
 const router = new Router({routes});
 
 Vue.component('add-task', require('./components/AddTaskComponent'));
+Vue.component('edit-task', require('./components/EditTaskComponent'));
 
 //Vue.component('example', require('./components/HomeComponent.vue'));
 

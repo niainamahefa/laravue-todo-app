@@ -22,3 +22,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/tasksList', 'TaskController@index');
 
 Route::post('/tasksList', 'TaskController@store');
+
+Route::get('/tasks/edit/{id}', 'TaskController@edit');
