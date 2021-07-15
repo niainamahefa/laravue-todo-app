@@ -52904,6 +52904,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }).catch(function (error) {
                 return console.log(error);
             });
+        },
+        deleteTask: function deleteTask(id) {
+            var _this3 = this;
+
+            axios.delete('http://localhost:8000/tasks/' + id).then(function (response) {
+                return _this3.tasks = response;
+            }).catch(function (error) {
+                return console.log(error);
+            });
         }
     },
 
@@ -52958,15 +52967,6 @@ var render = function() {
                               "button",
                               {
                                 staticClass: "btn btn-sm btn-outline-secondary",
-                                attrs: { type: "button" }
-                              },
-                              [_vm._v("View")]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-sm btn-outline-secondary",
                                 attrs: {
                                   type: "button",
                                   "data-toggle": "modal",
@@ -52983,6 +52983,20 @@ var render = function() {
                                   "\n                                        Edit\n                                    "
                                 )
                               ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "button",
+                              {
+                                staticClass: "btn btn-sm btn-outline-danger",
+                                attrs: { type: "button" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deleteTask(task.id)
+                                  }
+                                }
+                              },
+                              [_vm._v("Delete")]
                             ),
                             _vm._v(" "),
                             _c("edit-task", {

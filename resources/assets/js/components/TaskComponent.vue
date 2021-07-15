@@ -11,10 +11,10 @@
                                 <p class="card-text">{{ task.description }}</p>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                                         <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#editModal" @click="getTask(task.id)">
                                             Edit
                                         </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" @click="deleteTask(task.id)">Delete</button>
                                         <edit-task v-bind:taskTitle="taskTitle" v-bind:taskDescription="taskDescription"></edit-task>
                                     </div>
                                 </div>
@@ -56,6 +56,11 @@
                             this.taskDescription = response.data.description
                     })
                     .catch(error => console.log(error))
+            },
+            deleteTask(id) {
+              axios.delete('http://localhost:8000/tasks/' + id)
+                  .then(response => this.tasks = response)
+                  .catch(error => console.log(error))
             }
         },
 
