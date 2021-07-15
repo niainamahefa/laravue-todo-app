@@ -12,10 +12,10 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#editModal">
+                                        <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#editModal" @click="getTask(task.id)">
                                             Edit
                                         </button>
-                                        <edit-task v-bind:taskToEdit="taskToEdit"></edit-task>
+                                        <edit-task v-bind:taskTitle="taskTitle" v-bind:taskDescription="taskDescription"></edit-task>
                                     </div>
                                 </div>
                             </div>
@@ -33,7 +33,8 @@
             // retourne un tableau vide
             return {
                 tasks: {},
-                taskToEdit: ''
+                taskTitle: '',
+                taskDescription: ''
             }
         },
         /*
@@ -49,8 +50,11 @@
               this.tasks = tasks.data
           },
             getTask(id) {
-                axios.get('http://localhost:8000/tasks/edit' + id)
-                    .then(response => console.log(response.data))
+                axios.get('http://localhost:8000/tasks/edit/' + id)
+                    .then(response => {
+                        this.taskTitle = response.data.title,
+                            this.taskDescription = response.data.description
+                    })
                     .catch(error => console.log(error))
             }
         },
